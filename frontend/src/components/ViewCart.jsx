@@ -45,14 +45,14 @@ const ViewCart = () => {
     <div className="cart lg:px-24 px-6 py-12">
       <h2 className="text-[32px] font-semibold mb-8">Cart</h2>
 
-      {cart.cartItems.length === 0 ? (
+      {cart?.cartItems.length === 0 ? (
         <p>Your cart is currently empty.</p>
       ) : (
         <>
           {/* Cart Items */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="cart-items">
-              {cart.cartItems.map((item) => (
+              {cart?.cartItems.map((item) => (
                 <div
                   key={item.id}
                   className="cart-item flex justify-between items-center mb-4 border-b pb-4"
@@ -76,7 +76,7 @@ const ViewCart = () => {
                     </div>
                   </div>
                   <div>
-                    <p className="font-semibold">{item.price}</p>
+                    <p className="font-semibold">{item.currentPrice}</p>
                     <Button
                       type="text"
                       icon={<CloseOutlined />}

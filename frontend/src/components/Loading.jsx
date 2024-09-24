@@ -3,7 +3,7 @@ import { Row, Space, Spin } from "antd";
 const Loading = () => {
   return (
     <Row
-      className="bg-[#061520]"
+      className=""
       justify="center"
       align="middle"
       style={{

@@ -5,6 +5,8 @@ import { CiHeart } from "react-icons/ci";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
+import { useGetAllProductQuery } from "../../redux/api/productApi";
+import Loading from "../../components/Loading";
 
 const Product = () => {
   const [isHovered, setIsHovered] = useState(null);
@@ -15,6 +17,10 @@ const Product = () => {
     dispatch(addToCart(product));
   };
 
+  const { data: products, isLoading } = useGetAllProductQuery({});
+
+  console.log("prod", products);
+
   const categories = ["All Rooms", "Bedroom", "Kitchen", "Bathroom"];
   const price = [
     "$0.00-99.99",
@@ -24,51 +30,10 @@ const Product = () => {
     "400.00+",
   ];
 
-  const products = [
-    {
-      name: "Loveseat Sofa",
-      description: "helllo",
-      category: "Bedroom",
-      status: "New",
-      rating: 5,
-      currentPrice: "$199.00",
-      price: "$400.00",
-      imageUrl:
-        "https://www.otobi.com/data_images/1612-pimage1-ssoc004-(2).jpg",
-    },
-    {
-      name: "Luxury Sofa",
-      description: "helllo",
-      category: "Bedroom",
-      status: "New",
-      rating: 5,
-      currentPrice: "$199.00",
-      price: "$400.00",
-      imageUrl:
-        "https://www.otobi.com/data_images/1160-pimage1-sscp012lraa001.jpg",
-    },
-    {
-      name: "Kitchen",
-      description: "helllo",
-      category: "Kitchen",
-      status: "New",
-      rating: 5,
-      currentPrice: "$199.00",
-      price: "$400.00",
-      imageUrl:
-        "https://www.otobi.com/data_images/879-pimage3-enscape_2022-09-10-15-12-27-enhanced.jpg",
-    },
-    {
-      name: "Drawer Unit",
-      description: "helllo",
-      category: "Bedroom",
-      status: "New",
-      rating: 5,
-      currentPrice: "$199.00",
-      price: "$400.00",
-      imageUrl: "https://www.otobi.com/data_images/989-pimage1-cdda005wd.jpg",
-    },
-  ];
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex gap-5 lg:px-24 px-6 my-12">
       {/* categories */}
@@ -81,7 +46,7 @@ const Product = () => {
         {/* categories */}
         <div className="text-base font-semibold mt-8">CATEGORIES</div>
         <div className="flex flex-col gap-3 mt-3">
-          {categories.map((item, i) => (
+          {categories?.map((item, i) => (
             <div className="text-[#6C7275]" key={i}>
               {item}
             </div>
@@ -89,7 +54,7 @@ const Product = () => {
         </div>
         <div className="text-base font-semibold mt-5">PRICE</div>
         <div className="flex flex-col gap-3 mt-3">
-          {price.map((item, i) => (
+          {price?.map((item, i) => (
             <div className="text-[#6C7275]" key={i}>
               {item}
             </div>
@@ -105,7 +70,7 @@ const Product = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-          {products.map((product, i) => (
+          {products?.map((product, i) => (
             <Card
               onMouseEnter={() => setIsHovered(i)}
               onMouseLeave={() => setIsHovered(null)}

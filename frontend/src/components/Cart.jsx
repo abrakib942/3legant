@@ -35,12 +35,12 @@ const Cart = () => {
     <div className="cart">
       <h2 className="text-[24px] font-semibold">Cart</h2>
 
-      {cart.cartItems.length === 0 ? (
+      {cart?.cartItems.length === 0 ? (
         <p>Your cart is currently empty.</p>
       ) : (
         <>
           <div className="cart-items">
-            {cart.cartItems.map((item) => (
+            {cart?.cartItems.map((item) => (
               <div
                 key={item.id}
                 className="cart-item flex justify-between items-center mb-4"
@@ -82,7 +82,7 @@ const Cart = () => {
                 </div>
 
                 <div>
-                  <p className="font-semibold">{item.price}</p>
+                  <p className="font-semibold">{item.currentPrice}</p>
                   <Button
                     type="text"
                     icon={<CloseOutlined />}
