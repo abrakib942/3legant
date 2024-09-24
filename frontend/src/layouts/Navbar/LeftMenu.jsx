@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const LeftMenu = ({ mode }) => {
   const items = [
     { key: "Home", label: "Home", link: "/" },
-    { key: "Shop", label: "Shop", link: "/shop" },
+    { key: "Shop", label: "Shop", link: "/" },
     { key: "Product", label: "Product", link: "/product" },
     { key: "Contact Us", label: "Contact Us", link: "/contact" },
   ];

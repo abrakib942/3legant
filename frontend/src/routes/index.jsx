@@ -1,5 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import Home from "../pages/Home";
+import Checkout from "../components/Checkout";
+import ViewCart from "../components/ViewCart";
 
 const routes = createBrowserRouter([
   {
@@ -7,8 +10,16 @@ const routes = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/home",
-        element: <App />,
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "/viewCart",
+        element: <ViewCart />,
       },
     ],
   },

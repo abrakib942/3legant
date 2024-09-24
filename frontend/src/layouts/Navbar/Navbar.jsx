@@ -8,11 +8,21 @@ import { CiSearch } from "react-icons/ci";
 import { CgProfile, CgShoppingBag } from "react-icons/cg";
 
 import "./navbar.css";
+import Cart from "../../components/Cart";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const showDrawer = () => {
+  const [cartVisible, setCartVisible] = useState(false);
+
+  const totalItems = useSelector((state) => state.cart.totalQuantity);
+
+  const showMenuDrawer = () => {
     setVisible(!visible);
+  };
+
+  const showCartDrawer = () => {
+    setCartVisible(!cartVisible);
   };
 
   return (
@@ -21,7 +31,11 @@ const Navbar = () => {
         <div className="flex justify-evenly">
           <div className="flex items-center mr-auto">
             <div>
-              <Button className="menuButton" type="text" onClick={showDrawer}>
+              <Button
+                className="menuButton"
+                type="text"
+                onClick={showMenuDrawer}
+              >
                 <MenuOutlined />
               </Button>
             </div>
@@ -40,8 +54,14 @@ const Navbar = () => {
               <CgProfile className="text-[24px]" />
             </div>
 
-            <div>
-              <CgShoppingBag className="text-[24px] " />
+            <div
+              onClick={showCartDrawer}
+              className=" cursor-pointer flex items-center gap-1"
+            >
+              <CgShoppingBag className="text-[24px]" />
+              <span className="text-[12px] bg-slate-900 px-[6px] rounded-[50%] text-white font-semibold pb-[2px]">
+                {totalItems}
+              </span>
             </div>
           </div>
 
@@ -50,12 +70,26 @@ const Navbar = () => {
               title={"3legant."}
               placement="left"
               closable={true}
-              onClose={showDrawer}
+              onClose={showMenuDrawer}
               open={visible}
               style={{ zIndex: 9999 }}
             >
               <LeftMenu mode={"inline"} />
               <RightMenu mode={"inline"} />
+            </Drawer>
+          </div>
+
+          {/* Cart drawer */}
+          <div>
+            <Drawer
+              title={"Cart"}
+              placement="right"
+              closable={true}
+              onClose={showCartDrawer}
+              open={cartVisible}
+              style={{ zIndex: 9999 }}
+            >
+              <Cart />
             </Drawer>
           </div>
         </div>
