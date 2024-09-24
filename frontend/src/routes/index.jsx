@@ -6,6 +6,7 @@ import ViewCart from "../components/ViewCart";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../components/NotFound";
+import PrivateRoute from "./PrivateRoutes";
 
 const routes = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <Checkout />,
+        element: (
+          <PrivateRoute>
+            <Checkout />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/viewCart",

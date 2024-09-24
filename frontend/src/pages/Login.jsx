@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import { Col, Row, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 
 import { loginSchema } from "../schemas/yupSchemas";
@@ -16,6 +16,7 @@ import Navbar from "../layouts/navbar/Navbar";
 const Login = () => {
   const [userLogin, { isLoading }] = useUserLoginMutation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = async (data) => {
     try {
@@ -29,7 +30,10 @@ const Login = () => {
 
           duration: 3,
         });
-        navigate("/");
+        // Get the 'from' location, or default to the homepage
+        const from = location.state?.from?.pathname || "/";
+
+        navigate(from);
 
         localStorage.setItem("accessToken", res?.data?.token);
         // storeUserInfo({ accessToken: res?.data?.token });

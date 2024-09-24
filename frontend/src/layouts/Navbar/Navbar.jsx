@@ -1,21 +1,35 @@
 import { useState } from "react";
-import { Button, Drawer } from "antd";
+import { Button, Drawer, message } from "antd";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { MenuOutlined } from "@ant-design/icons";
 
 import { CiSearch } from "react-icons/ci";
 import { CgProfile, CgShoppingBag } from "react-icons/cg";
+import { LogoutOutlined } from "@ant-design/icons";
 
 import "./navbar.css";
 import Cart from "../../components/Cart";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserInfo, removeUserInfo } from "../../utils/authService";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const [cartVisible, setCartVisible] = useState(false);
 
   const totalItems = useSelector((state) => state.cart.totalQuantity);
+
+  const navigate = useNavigate();
+  const { userId } = getUserInfo();
+
+  const logOut = () => {
+    removeUserInfo("accessToken");
+
+    message.success("logged out");
+
+    navigate("/");
+  };
 
   const showMenuDrawer = () => {
     setVisible(!visible);
@@ -50,9 +64,16 @@ const Navbar = () => {
             <div>
               <CiSearch className="text-[24px] " />
             </div>
-            <div className=" lg:block hidden">
-              <CgProfile className="text-[24px]" />
-            </div>
+
+            {userId ? (
+              <Button onClick={() => logOut()}>
+                <LogoutOutlined className="" />
+              </Button>
+            ) : (
+              <Link to="/login" className=" lg:block hidden">
+                <CgProfile className="text-[24px]" />
+              </Link>
+            )}
 
             <div
               onClick={showCartDrawer}
